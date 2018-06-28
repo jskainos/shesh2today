@@ -1,6 +1,7 @@
 package model;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 
 public class Employee {
 	private int employeeNum;
@@ -12,6 +13,9 @@ public class Employee {
 	private String iban;
 	private String salary;
 	
+	public Employee() {
+		
+	}
 	
 	public Employee(String name, String niNumber, String department, String dob, String address, String iban, String salary) {
 		this.name = name;
@@ -25,6 +29,13 @@ public class Employee {
 	
 	
 	
+	public Employee(String name, String dob, String niNumber, String department) {
+		this.name = name;
+		this.niNumber = niNumber;
+		this.department = department;
+		this.dob = dob;
+	}
+
 	public void setName(String name) {
 		this.name = name;
 	}
@@ -35,6 +46,11 @@ public class Employee {
 	
 	public void postToDB() {
 		EmployeeQueries.insertEmployees(this);
+	}
+	
+	public ArrayList<Employee> generateBUReport(String department) {
+		ArrayList<Employee> empList = EmployeeQueries.generateEmployeesBUReport(department);
+		return empList;
 	}
 
 	public int getEmployeeNum() {

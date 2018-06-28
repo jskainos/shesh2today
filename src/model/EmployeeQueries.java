@@ -55,6 +55,27 @@ public class EmployeeQueries {
 		}
 	}
 
+	public static ArrayList<Employee> generateEmployeesBUReport(String bu) {
+	
+		Connection c = utils.DBUtils.getConnection();
+		ArrayList<Employee> emps = new ArrayList<Employee>();
+		System.out.println("SELECT * FROM employee where department = \"" + bu + "\"");
+		try {
+			Statement s = c.createStatement();
+			ResultSet rows = s.executeQuery(
+					"SELECT * FROM employee where department = \"" + bu + "\"");
+			while (rows.next()) {
+				Employee e = new Employee(rows.getString(2), rows.getString(3),
+						rows.getString(4), rows.getString(5));
+				emps.add(e);
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return emps;
+	}
+
 	
 
 }
