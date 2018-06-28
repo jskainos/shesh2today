@@ -8,6 +8,17 @@ import java.awt.BorderLayout;
 import javax.swing.JButton;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
+
 import model.EmployeeQueries;
 import model.Employee;
 import java.awt.FlowLayout;
@@ -17,7 +28,10 @@ import javax.swing.JLabel;
 
 public class EmpAppWindow {
 
-	private JFrame frame;
+	private JFrame empadd;
+	private JFrame launcher;
+	private JFrame report;
+	
 	private JTextField textName;
 	private JTextField textAddress;
 	private JTextField textNIN;
@@ -42,7 +56,7 @@ public class EmpAppWindow {
 			public void run() {
 				try {
 					EmpAppWindow window = new EmpAppWindow();
-					window.frame.setVisible(true);
+					window.launcher.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -54,17 +68,59 @@ public class EmpAppWindow {
 	 * Create the application.
 	 */
 	public EmpAppWindow() {
-		initialize();
+		initializeLauncher();
 	}
 
 	/**
 	 * Initialize the contents of the frame.
+	 * 
 	 */
-	private void initialize() {
+	private void initializeLauncher() {
 		
-		frame = new JFrame();
-		frame.setBounds(100, 100, 450, 300);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		launcher = new JFrame("Employee Management App");
+		launcher.setBounds(100, 100, 450, 300);
+		launcher.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		
+		launcher.getContentPane().setLayout(new FlowLayout(FlowLayout.LEFT));
+		
+		JButton launcherbutton1 = new JButton("Manage Employees");
+		launcherbutton1.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				initializeAddEmp();
+			}
+		});
+		
+		JButton launcherbutton2 = new JButton("Generate Report");
+		launcherbutton2.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				generateReport();
+			}
+		});
+		launcher.getContentPane().add(launcherbutton1);
+		launcher.getContentPane().add(launcherbutton2);
+		
+	}
+	
+	private void generateReport() {
+		
+		report = new JFrame("Report Generated");
+		report.setBounds(100, 100, 400, 500);
+		report.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		
+		report.getContentPane().setLayout(new GridLayout(0,1));
+		report.setVisible(true);
+		
+		
+	}
+	
+	
+	private void initializeAddEmp() {
+		
+		empadd = new JFrame();
+		empadd.setBounds(100, 100, 450, 300);
+		empadd.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		textName = new JTextField();
 		textAddress = new JTextField();
@@ -82,26 +138,26 @@ public class EmpAppWindow {
 		DepLabel = new JLabel("Department:");
 		DOBLabel = new JLabel("Date of birth:");
 		
-		frame.getContentPane().add(NameLabel);
-		frame.getContentPane().add(textName);
+		empadd.getContentPane().add(NameLabel);
+		empadd.getContentPane().add(textName);
 		
-		frame.getContentPane().add(NINLabel);
-		frame.getContentPane().add(textNIN);
+		empadd.getContentPane().add(NINLabel);
+		empadd.getContentPane().add(textNIN);
 		
-		frame.getContentPane().add(DepLabel);
-		frame.getContentPane().add(textDepartment);
+		empadd.getContentPane().add(DepLabel);
+		empadd.getContentPane().add(textDepartment);
 		
-		frame.getContentPane().add(DOBLabel);
-		frame.getContentPane().add(textDOB);
+		empadd.getContentPane().add(DOBLabel);
+		empadd.getContentPane().add(textDOB);
 		
-		frame.getContentPane().add(AddressLabel);
-		frame.getContentPane().add(textAddress);
+		empadd.getContentPane().add(AddressLabel);
+		empadd.getContentPane().add(textAddress);
 		
-		frame.getContentPane().add(BankAccLabel);
-		frame.getContentPane().add(textBankAcc);
+		empadd.getContentPane().add(BankAccLabel);
+		empadd.getContentPane().add(textBankAcc);
 		
-		frame.getContentPane().add(SalaryLabel);
-		frame.getContentPane().add(textSalary);
+		empadd.getContentPane().add(SalaryLabel);
+		empadd.getContentPane().add(textSalary);
 		
 		textName.setColumns(10); textAddress.setColumns(10); textNIN.setColumns(10);
 		textBankAcc.setColumns(10); textSalary.setColumns(10); textDepartment.setColumns(10);
@@ -123,9 +179,47 @@ public class EmpAppWindow {
 			}
 		});
 		
-		frame.getContentPane().setLayout(new GridLayout(0,2));
+		JButton backbtn = new JButton("Back");
+		backbtn.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				empadd.setVisible(false);
+			}
+		});
 		
-		frame.getContentPane().add(btnNewButton);
+		empadd.getContentPane().setLayout(new GridLayout(0,2));
+		
+		empadd.getContentPane().add(btnNewButton);
+		empadd.getContentPane().add(backbtn);
+		empadd.setVisible(true);
+	}
+	
+	private List<Employee> processInputFile(String inputFilePath) {
+
+	    List<Employee> inputList = new ArrayList<Employee>();
+
+	    try{
+
+	      File inputF = new File(inputFilePath);
+
+	      InputStream inputFS = new FileInputStream(inputF);
+
+	      BufferedReader br = new BufferedReader(new InputStreamReader(inputFS));
+
+	      // skip the header of the csv
+
+	      inputList = br.lines().skip(1).map( e -> e).collect(Collectors.toList());
+
+	      br.close();
+
+	    } catch (FileNotFoundException|IOException e) {
+
+	      
+
+	    }
+
+	    return inputList ;
+
 	}
 
 }
