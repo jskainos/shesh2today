@@ -13,11 +13,14 @@ public class Employee {
 	private String salary;
 	
 	
-	public Employee(String name, String niNumber, String department, String dob) {
+	public Employee(String name, String niNumber, String department, String dob, String address, String iban, String salary) {
 		this.name = name;
 		this.niNumber = niNumber;
 		this.department = department;
 		this.dob = dob;
+		this.address = address;
+		this.iban = iban;
+		this.salary = salary;
 	}
 	
 	
