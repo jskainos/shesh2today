@@ -47,6 +47,7 @@ public class EmpAppWindow {
 	private JLabel BankAccLabel;
 	private JLabel DepLabel;
 	private JLabel DOBLabel;
+	
 
 	/**
 	 * Launch the application.
@@ -112,7 +113,24 @@ public class EmpAppWindow {
 		report.getContentPane().setLayout(new GridLayout(0,1));
 		report.setVisible(true);
 		
+		JTextField reportText = new JTextField("Enter Department...");
+		JButton reportbtn = new JButton("Generate Report");
+		reportbtn.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				
+			}
+		}); 
+		report.getContentPane().add(reportText);
+		report.getContentPane().add(reportbtn);
+	
 		
+		ArrayList<Employee> theList = new ArrayList<Employee>();
+		theList = EmployeeQueries.generateEmployeesBUReport(reportText.getText());
+		
+		for(Employee e : theList) {
+			JLabel temp1 = new JLabel(e.toString());
+		}
 	}
 	
 	
@@ -197,32 +215,31 @@ public class EmpAppWindow {
 		empadd.setVisible(true);
 	}
 	
-	private List<Employee> processInputFile(String inputFilePath) {
-
-	    List<Employee> inputList = new ArrayList<Employee>();
-
-	    try{
-
-	      File inputF = new File(inputFilePath);
-
-	      InputStream inputFS = new FileInputStream(inputF);
-
-	      BufferedReader br = new BufferedReader(new InputStreamReader(inputFS));
-
-	      // skip the header of the csv
-
-	      inputList = br.lines().skip(1).map( e -> e).collect(Collectors.toList());
-
-	      br.close();
-
-	    } catch (FileNotFoundException|IOException e) {
-
-	      
-
-	    }
-
-	    return inputList ;
-
-	}
+//	private List<Employee> processInputFile(String inputFilePath) {
+//
+//	    List<Employee> inputList = new ArrayList<Employee>();
+//
+//	    try{
+//
+//	      File inputF = new File(inputFilePath);
+//
+//	      InputStream inputFS = new FileInputStream(inputF);
+//
+//	      BufferedReader br = new BufferedReader(new InputStreamReader(inputFS));
+//
+//	      // skip the header of the csv
+//
+//	      inputList = br.lines().skip(1).map( e -> e).collect(Collectors.toList());
+//
+//	      br.close();
+//
+//	    } catch (FileNotFoundException|IOException e) {
+//
+//
+//	    }
+//
+//	    return inputList ;
+//
+//	}
 
 }
