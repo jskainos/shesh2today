@@ -5,3 +5,6 @@ CREATE TABLE `sales` (
   CONSTRAINT `empNo` FOREIGN KEY (`employee_number`) REFERENCES `employee` (`employee_number`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+ALTER TABLE `sesh2today`.`sales` 
+ADD COLUMN `totalSales` DECIMAL(11,2) NULL AFTER `commissionRate`;
+
