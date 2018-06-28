@@ -138,5 +138,11 @@ public class Employee {
 	public void setSalary(String salary) {
 		this.salary = salary;
 	}
+
+	@Override
+	public String toString() {
+		return "Employee [employeeNum=" + employeeNum + ", name=" + name + ", niNumber=" + niNumber + ", department="
+				+ department + ", dob=" + dob + ", address=" + address + ", iban=" + iban + ", salary=" + salary + "]";
+	}
 	
 }
