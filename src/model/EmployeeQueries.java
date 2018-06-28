@@ -65,8 +65,8 @@ public class EmployeeQueries {
 			ResultSet rows = s.executeQuery(
 					"SELECT * FROM employee where department = \"" + bu + "\"");
 			while (rows.next()) {
-				Employee e = new Employee(rows.getString(2), rows.getString(3),
-						rows.getString(4), rows.getString(5));
+				Employee e = new Employee(rows.getString("name"), rows.getString("dob"),rows.getString("ni_number"),
+						rows.getString("department"));
 				emps.add(e);
 			}
 			
