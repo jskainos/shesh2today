@@ -130,6 +130,7 @@ public class EmpAppWindow {
 		
 		for(Employee e : theList) {
 			JLabel temp1 = new JLabel(e.toString());
+			report.add(temp1);
 		}
 	}
 	
