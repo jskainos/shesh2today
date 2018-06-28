@@ -30,11 +30,14 @@ public class EmployeeQueries {
 	}
 	
 	public static void insertEmployees(Employee emp) {
+		System.out.println(emp.getName());
+		String query = "INSERT into employee (employee_number, name, ni_number, dob, department) values (4,\"" + emp.getName() + "\", \"1\", \"24\", \"BU\");";
 
+		System.out.println(query);
 		Connection c = utils.DBUtils.getConnection();
 		try {
 			Statement s = c.createStatement();
-			s.executeQuery("INSERT into Employee (Name) values (\'" + emp.getName() + "\'");
+			s.executeUpdate(query);
 			
 		} catch (Exception e) {
 			e.printStackTrace();
