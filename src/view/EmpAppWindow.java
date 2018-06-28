@@ -10,11 +10,18 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import model.EmployeeQueries;
 import model.Employee;
+import java.awt.FlowLayout;
 
 public class EmpAppWindow {
 
 	private JFrame frame;
-	private JTextField textField;
+	private JTextField textName;
+	private JTextField textAddress;
+	private JTextField textNIN;
+	private JTextField textSalary;
+	private JTextField textBankAcc;
+	private JTextField textDepartment;
+	private JTextField textDOB;
 
 	/**
 	 * Launch the application.
@@ -43,23 +50,47 @@ public class EmpAppWindow {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
+		
 		frame = new JFrame();
 		frame.setBounds(100, 100, 450, 300);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
-		textField = new JTextField();
-		frame.getContentPane().add(textField, BorderLayout.CENTER);
-		textField.setColumns(10);
+		textName = new JTextField();
+		textAddress = new JTextField();
+		textNIN = new JTextField();
+		textBankAcc = new JTextField();
+		textSalary = new JTextField();
+		textDepartment = new JTextField();
+		textDOB = new JTextField();
+		frame.getContentPane().add(textName);
+		frame.getContentPane().add(textNIN);
+		frame.getContentPane().add(textDepartment);
+		frame.getContentPane().add(textDOB);
+		frame.getContentPane().add(textAddress);
+		frame.getContentPane().add(textBankAcc);
+		frame.getContentPane().add(textSalary);
 		
-		JButton btnNewButton = new JButton("Add Employee Name");
+		textName.setColumns(10); textAddress.setColumns(10); textNIN.setColumns(10);
+		textBankAcc.setColumns(10); textSalary.setColumns(10); textDepartment.setColumns(10);
+		textDOB.setColumns(10);
+		
+		JButton btnNewButton = new JButton("Add Employee");
 		btnNewButton.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				Employee emp1 = new Employee("test");
+				Employee emp1 = new Employee(textName.getText(), textNIN.getText(),
+						textDepartment.getText(), textDOB.getText(), textAddress.getText(),
+						textBankAcc.getText(), textSalary.getText());
 				emp1.postToDB();
 			}
 		});
-		frame.getContentPane().add(btnNewButton, BorderLayout.EAST);
+		frame.getContentPane().setLayout(new FlowLayout(FlowLayout.LEFT, 25, 25));
+		
+	
+		btnNewButton.setSize(4, 2);
+		
+		
+		frame.getContentPane().add(btnNewButton);
 	}
 
 }
