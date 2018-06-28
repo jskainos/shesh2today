@@ -1,8 +1,8 @@
 package controller;
 
-public class main {
+public class EmoloyeeQueries {
 
-	public main() {
+	public EmoloyeeQueries() {
 		// TODO Auto-generated constructor stub
 	}
 
