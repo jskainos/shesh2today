@@ -1,6 +1,9 @@
 package model;
 
+import java.sql.SQLException;
 import java.time.LocalDate;
+import java.util.regex.*;
+import java.util.ArrayList;
 
 public class Employee {
 	private int employeeNum;
@@ -12,8 +15,12 @@ public class Employee {
 	private String iban;
 	private String salary;
 	
+	public Employee() {
+		
+	}
 	
-	public Employee(String name, String niNumber, String department, String dob, String address, String iban, String salary) {
+	public Employee(String name, String niNumber, String department, 
+			String dob, String address, String iban, String salary) {
 		this.name = name;
 		this.niNumber = niNumber;
 		this.department = department;
@@ -24,7 +31,13 @@ public class Employee {
 	}
 	
 	
-	
+	public Employee(String name, String dob, String niNumber, String department) {
+		this.name = name;
+		this.niNumber = niNumber;
+		this.department = department;
+		this.dob = dob;
+	}
+
 	public void setName(String name) {
 		this.name = name;
 	}
@@ -33,9 +46,34 @@ public class Employee {
 		return name;
 	}
 	
-	public void postToDB() {
-		EmployeeQueries.insertEmployees(this);
+	private boolean validate() {
+		return Pattern.matches("[A-Za-z\\s]+", getName()) && 
+				Pattern.matches("^\\s*[a-zA-Z]{2}(?:\\s*\\d\\s*){6}[a-zA-Z]?\\s*$", getNiNumber()) &&
+				Pattern.matches("[A-Za-z\\s]+", getDepartment()) &&
+				Pattern.matches("^\\d{2}-\\d{2}-\\d{4}$", getDob()) &&
+				Pattern.matches("[A-Za-z\\s0-9]+", getAddress()) &&
+				Pattern.matches("[0-9]{9}", getIban()) &&
+				Pattern.matches("[0-9]+([,.][0-9]{1,2})?", getSalary());
 	}
+	
+
+	public boolean postToDB() {
+		if (validate()) {
+			try {
+				EmployeeQueries.insertEmployees(this);
+				return true;
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return false;
+	}
+	
+	public ArrayList<Employee> generateBUReport(String department) {
+		ArrayList<Employee> empList = EmployeeQueries.generateEmployeesBUReport(department);
+		return empList;
+	}
+
 
 	public int getEmployeeNum() {
 		return employeeNum;
