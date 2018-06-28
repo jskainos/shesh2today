@@ -123,7 +123,7 @@ public class EmpAppWindow {
 				
 				for(Employee emptemp : theList) {
 					JLabel temp1 = new JLabel(emptemp.toString());
-					report.add(temp1);
+					report.getContentPane().add(temp1);
 				}
 			}
 		}); 
