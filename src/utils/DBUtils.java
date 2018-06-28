@@ -41,10 +41,10 @@ public class DBUtils {
 		return null;
 	}
 	
-	public static void main (String[] args) {
-		Employee emp = new Employee("Tester Mc Test");
-		emp.postToDB();
-		
-	}
+//	public static void main (String[] args) {
+//		Employee emp = new Employee("Tester Mc Test");
+//		emp.postToDB();
+//		
+//	}
 
 }
