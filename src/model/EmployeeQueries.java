@@ -20,7 +20,11 @@ public class EmployeeQueries {
 			ResultSet rows = s.executeQuery(
 					"SELECT emp_no AS `number`, CONCAT_WS(' ', first_name, last_name) AS `name`, salary FROM employees JOIN salaries USING(emp_no) WHERE to_date > NOW()");
 			while (rows.next()) {
-				emps.add(new Employee(rows.getString("name")));
+				emps.add(new Employee(rows.getString("name"),
+						rows.getString("ni_number"), rows.getString("department"),
+						rows.getString("dob"),
+						rows.getString("address"), rows.getString("iban"),
+						rows.getString("starting_salary")));
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -30,15 +34,22 @@ public class EmployeeQueries {
 	}
 	
 	public static void insertEmployees(Employee emp) {
-		System.out.println(emp.getName());
-		String query = "INSERT into employee (name, ni_number, dob, department) values (\"" + emp.getName() + "\", \"1\", \"24\", \"BU\");";
-
-		System.out.println(query);
+		String empQuery = "INSERT INTO employees(name, ni_number, department, dob) "
+				+ "VALUES (\"" + emp.getName() + "\", \"" + emp.getNiNumber() 
+				+ "\", \"" + emp.getDepartment() + "\", \"" + emp.getDob() + "\")";
+		
+		String payQuery = "INSERT INTO payroll(iban, starting_salary) VALUES (\"" 
+		+ emp.getIban() + "\", \"" + emp.getSalary() + "\")";
+		
+		String addQuery = "INSERT INTO address(address, city, postcode) VALUES (\"" + emp.getAddress() + "\", \"testCity\", \"testPostcode\")";
+		
+		
 		Connection c = utils.DBUtils.getConnection();
 		try {
 			Statement s = c.createStatement();
-			s.executeUpdate(query);
-			
+			s.executeUpdate(empQuery);
+			s.executeUpdate(payQuery);
+			s.executeQuery(addQuery);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
