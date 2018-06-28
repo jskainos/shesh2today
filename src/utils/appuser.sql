@@ -1,0 +1,1 @@
+CREATE USER 'appuser'@'localhost' IDENTIFIED BY 'password';
