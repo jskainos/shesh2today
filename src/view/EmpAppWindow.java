@@ -118,20 +118,19 @@ public class EmpAppWindow {
 		reportbtn.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
+				ArrayList<Employee> theList = new ArrayList<Employee>();
+				theList = EmployeeQueries.generateEmployeesBUReport(reportText.getText());
 				
+				for(Employee emptemp : theList) {
+					JLabel temp1 = new JLabel(emptemp.toString());
+					report.add(temp1);
+				}
 			}
 		}); 
 		report.getContentPane().add(reportText);
 		report.getContentPane().add(reportbtn);
 	
 		
-		ArrayList<Employee> theList = new ArrayList<Employee>();
-		theList = EmployeeQueries.generateEmployeesBUReport(reportText.getText());
-		
-		for(Employee e : theList) {
-			JLabel temp1 = new JLabel(e.toString());
-			report.add(temp1);
-		}
 	}
 	
 	
