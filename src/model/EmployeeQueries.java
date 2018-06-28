@@ -2,6 +2,7 @@ package model;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
@@ -33,7 +34,7 @@ public class EmployeeQueries {
 		return emps;
 	}
 	
-	public static void insertEmployees(Employee emp) {
+	public static boolean insertEmployees(Employee emp) throws SQLException {
 		String empQuery = "INSERT INTO employee(name, ni_number, department, dob) "
 				+ "VALUES (\"" + emp.getName() + "\", \"" + emp.getNiNumber() 
 				+ "\", \"" + emp.getDepartment() + "\", \"" + emp.getDob() + "\")";
@@ -41,18 +42,17 @@ public class EmployeeQueries {
 		String payQuery = "INSERT INTO payroll(iban, starting_salary) VALUES (\"" 
 		+ emp.getIban() + "\", \"" + emp.getSalary() + "\")";
 		
-		String addQuery = "INSERT INTO address(address, city, postcode) VALUES (\"" + emp.getAddress() + "\", \"testCity\", \"testPostcode\")";
+		String addQuery = "INSERT INTO address(address, city, postcode) VALUES (\"" 
+		+ emp.getAddress() + "\", \"testCity\", \"testPostcode\")";
 		
-		
-		Connection c = utils.DBUtils.getConnection();
-		try {
-			Statement s = c.createStatement();
-			s.executeUpdate(empQuery);
-			s.executeUpdate(payQuery);
-			s.executeUpdate(addQuery);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+		Connection c;
+		c = utils.DBUtils.getConnection();
+		Statement s = c.createStatement();
+		s.executeUpdate(empQuery);
+		s.executeUpdate(payQuery);
+		s.executeUpdate(addQuery);
+		c.close();
+		return true;
 	}
 
 	

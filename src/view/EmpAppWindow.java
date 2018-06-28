@@ -116,7 +116,10 @@ public class EmpAppWindow {
 				Employee emp1 = new Employee(textName.getText(), textNIN.getText(),
 						textDepartment.getText(), textDOB.getText(), textAddress.getText(),
 						textBankAcc.getText(), textSalary.getText());
-				emp1.postToDB();
+				if (emp1.postToDB())
+					System.out.println("Success");
+				else
+					System.out.println("Failure");
 				textName.setText(""); textNIN.setText(""); textDepartment.setText("");
 				textDOB.setText(""); textAddress.setText(""); textBankAcc.setText("");
 				textSalary.setText("");
