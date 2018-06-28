@@ -3,6 +3,7 @@ package utils;
 import java.io.FileInputStream;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.util.ArrayList;
 import java.util.Properties;
 
 import model.Employee;
@@ -41,10 +42,12 @@ public class DBUtils {
 		return null;
 	}
 	
-//	public static void main (String[] args) {
-//		Employee emp = new Employee("Tester Mc Test");
-//		emp.postToDB();
-//		
-//	}
+	/*public static void main (String[] args) {
+		Employee emp = new Employee();
+		ArrayList<Employee> employeeList = emp.generateBUReport("ii");
+		
+		employeeList.stream().forEach(e -> e.getName());
+		
+	}*/
 
 }

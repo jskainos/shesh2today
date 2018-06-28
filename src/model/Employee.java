@@ -3,6 +3,7 @@ package model;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.regex.*;
+import java.util.ArrayList;
 
 public class Employee {
 	private int employeeNum;
@@ -14,6 +15,9 @@ public class Employee {
 	private String iban;
 	private String salary;
 	
+	public Employee() {
+		
+	}
 	
 	public Employee(String name, String niNumber, String department, 
 			String dob, String address, String iban, String salary) {
@@ -26,6 +30,14 @@ public class Employee {
 		this.salary = salary;
 	}
 	
+	
+	public Employee(String name, String dob, String niNumber, String department) {
+		this.name = name;
+		this.niNumber = niNumber;
+		this.department = department;
+		this.dob = dob;
+	}
+
 	public void setName(String name) {
 		this.name = name;
 	}
@@ -44,6 +56,7 @@ public class Employee {
 				Pattern.matches("[0-9]+([,.][0-9]{1,2})?", getSalary());
 	}
 	
+
 	public boolean postToDB() {
 		if (validate()) {
 			try {
@@ -56,6 +69,12 @@ public class Employee {
 		return false;
 	}
 	
+	public ArrayList<Employee> generateBUReport(String department) {
+		ArrayList<Employee> empList = EmployeeQueries.generateEmployeesBUReport(department);
+		return empList;
+	}
+
+
 	public int getEmployeeNum() {
 		return employeeNum;
 	}
