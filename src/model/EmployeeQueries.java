@@ -6,9 +6,9 @@ import java.sql.Statement;
 import java.util.ArrayList;
 
 
-public class EmoloyeeQueries {
+public class EmployeeQueries {
 
-	public EmoloyeeQueries() {
+	public EmployeeQueries() {
 	}
 
 	public static ArrayList<Employee> getEmployees() {
