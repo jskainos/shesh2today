@@ -8,6 +8,10 @@ public class Employee {
 	private String niNumber;
 	private String department;
 	private String dob;
+	private String address;
+	private String iban;
+	private String salary;
+	
 	
 	public Employee(String name, String niNumber, String department, String dob) {
 		this.name = name;
@@ -56,6 +60,42 @@ public class Employee {
 
 	public void setDob(String dob) {
 		this.dob = dob;
+	}
+
+
+
+	public String getAddress() {
+		return address;
+	}
+
+
+
+	public void setAddress(String address) {
+		this.address = address;
+	}
+
+
+
+	public String getIban() {
+		return iban;
+	}
+
+
+
+	public void setIban(String iban) {
+		this.iban = iban;
+	}
+
+
+
+	public String getSalary() {
+		return salary;
+	}
+
+
+
+	public void setSalary(String salary) {
+		this.salary = salary;
 	}
 	
 }
