@@ -11,7 +11,7 @@ public class DBUtils {
 		// TODO Auto-generated constructor stub
 	}
 
-	private static Connection getConnection() {
+	public static Connection getConnection() {
 		String user;
 		String password;
 		String host;
