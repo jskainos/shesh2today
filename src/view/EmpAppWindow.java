@@ -11,6 +11,9 @@ import java.awt.event.MouseEvent;
 import model.EmployeeQueries;
 import model.Employee;
 import java.awt.FlowLayout;
+import java.awt.GridLayout;
+
+import javax.swing.JLabel;
 
 public class EmpAppWindow {
 
@@ -22,6 +25,14 @@ public class EmpAppWindow {
 	private JTextField textBankAcc;
 	private JTextField textDepartment;
 	private JTextField textDOB;
+	
+	private JLabel NameLabel;
+	private JLabel AddressLabel;
+	private JLabel NINLabel;
+	private JLabel SalaryLabel;
+	private JLabel BankAccLabel;
+	private JLabel DepLabel;
+	private JLabel DOBLabel;
 
 	/**
 	 * Launch the application.
@@ -62,17 +73,41 @@ public class EmpAppWindow {
 		textSalary = new JTextField();
 		textDepartment = new JTextField();
 		textDOB = new JTextField();
+		
+		NameLabel = new JLabel("Name:");
+		AddressLabel = new JLabel("Address:");
+		NINLabel = new JLabel("NIN:");
+		BankAccLabel = new JLabel("IBAN:");
+		SalaryLabel = new JLabel("Salary:");
+		DepLabel = new JLabel("Department:");
+		DOBLabel = new JLabel("Date of birth:");
+		
+		frame.getContentPane().add(NameLabel);
 		frame.getContentPane().add(textName);
+		
+		frame.getContentPane().add(NINLabel);
 		frame.getContentPane().add(textNIN);
+		
+		frame.getContentPane().add(DepLabel);
 		frame.getContentPane().add(textDepartment);
+		
+		frame.getContentPane().add(DOBLabel);
 		frame.getContentPane().add(textDOB);
+		
+		frame.getContentPane().add(AddressLabel);
 		frame.getContentPane().add(textAddress);
+		
+		frame.getContentPane().add(BankAccLabel);
 		frame.getContentPane().add(textBankAcc);
+		
+		frame.getContentPane().add(SalaryLabel);
 		frame.getContentPane().add(textSalary);
 		
 		textName.setColumns(10); textAddress.setColumns(10); textNIN.setColumns(10);
 		textBankAcc.setColumns(10); textSalary.setColumns(10); textDepartment.setColumns(10);
 		textDOB.setColumns(10);
+		
+		
 		
 		JButton btnNewButton = new JButton("Add Employee");
 		btnNewButton.addMouseListener(new MouseAdapter() {
@@ -84,7 +119,7 @@ public class EmpAppWindow {
 				emp1.postToDB();
 			}
 		});
-		frame.getContentPane().setLayout(new FlowLayout(FlowLayout.LEFT, 25, 25));
+		frame.getContentPane().setLayout(new GridLayout(0,2));
 		
 	
 		btnNewButton.setSize(4, 2);
