@@ -110,10 +110,11 @@ public class EmpAppWindow {
 		report.setBounds(100, 100, 400, 500);
 		report.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
-		report.getContentPane().setLayout(new GridLayout(0,1));
+		report.getContentPane().setLayout(new FlowLayout());
 		report.setVisible(true);
 		
 		JTextField reportText = new JTextField("Enter Department...");
+		reportText.setSize(25, 5);
 		JButton reportbtn = new JButton("Generate Report");
 		reportbtn.addMouseListener(new MouseAdapter() {
 			@Override
@@ -122,14 +123,17 @@ public class EmpAppWindow {
 				theList = EmployeeQueries.generateEmployeesBUReport(reportText.getText());
 				
 				for(Employee emptemp : theList) {
-					JLabel temp1 = new JLabel(emptemp.toString());
-					report.getContentPane().add(temp1);
+					JLabel temp1 = new JLabel(emptemp.getEmployeeNum() + ", " + emptemp.getName() +", " + emptemp.getDepartment() + "\n");
+					
+					report.add(temp1);
+					report.repaint();
 				}
 			}
 		}); 
 		report.getContentPane().add(reportText);
 		report.getContentPane().add(reportbtn);
-	
+		
+		
 		
 	}
 	
