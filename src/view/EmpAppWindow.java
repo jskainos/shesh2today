@@ -117,13 +117,13 @@ public class EmpAppWindow {
 						textDepartment.getText(), textDOB.getText(), textAddress.getText(),
 						textBankAcc.getText(), textSalary.getText());
 				emp1.postToDB();
+				textName.setText(""); textNIN.setText(""); textDepartment.setText("");
+				textDOB.setText(""); textAddress.setText(""); textBankAcc.setText("");
+				textSalary.setText("");
 			}
 		});
+		
 		frame.getContentPane().setLayout(new GridLayout(0,2));
-		
-	
-		btnNewButton.setSize(4, 2);
-		
 		
 		frame.getContentPane().add(btnNewButton);
 	}
