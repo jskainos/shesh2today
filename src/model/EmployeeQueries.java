@@ -34,7 +34,7 @@ public class EmployeeQueries {
 	}
 	
 	public static void insertEmployees(Employee emp) {
-		String empQuery = "INSERT INTO employees(name, ni_number, department, dob) "
+		String empQuery = "INSERT INTO employee(name, ni_number, department, dob) "
 				+ "VALUES (\"" + emp.getName() + "\", \"" + emp.getNiNumber() 
 				+ "\", \"" + emp.getDepartment() + "\", \"" + emp.getDob() + "\")";
 		
@@ -49,7 +49,7 @@ public class EmployeeQueries {
 			Statement s = c.createStatement();
 			s.executeUpdate(empQuery);
 			s.executeUpdate(payQuery);
-			s.executeQuery(addQuery);
+			s.executeUpdate(addQuery);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
